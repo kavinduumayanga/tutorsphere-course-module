@@ -152,4 +152,21 @@ export const courseService = {
     const progress = this.getProgress(courseId, userId);
     return progress.total > 0 && progress.completed === progress.total;
   },
+
+  unenrollStudent(courseId: string, userId: string): boolean {
+    const courses = getCourses();
+    const course = courses.find(c => c.id === courseId);
+    if (!course) return false;
+
+    // Remove from course's enrolledStudents
+    course.enrolledStudents = course.enrolledStudents.filter(id => id !== userId);
+    saveCourses(courses);
+
+    // Remove enrollment record
+    const enrollments = getEnrollments(userId);
+    const updatedEnrollments = enrollments.filter(e => e.courseId !== courseId);
+    saveEnrollments(userId, updatedEnrollments);
+
+    return true;
+  },
 };
