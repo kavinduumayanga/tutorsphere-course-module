@@ -9,6 +9,12 @@ import CourseDetailsPage from './pages/CourseDetailsPage';
 import TutorCourseManager from './pages/TutorCourseManager';
 import ResourcesPage from './pages/ResourcesPage';
 
+/** Home component: redirects based on auth status */
+function Home() {
+  const { isAuthenticated } = useAuth();
+  return <Navigate to={isAuthenticated ? "/courses" : "/login"} replace />;
+}
+
 /** Route guard: requires login */
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
@@ -43,7 +49,7 @@ function AppRoutes() {
     <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-900">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Home />} />
         <Route element={<AuthenticatedLayout />}>
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/courses/:id" element={<CourseDetailsPage />} />

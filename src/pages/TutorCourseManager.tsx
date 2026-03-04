@@ -50,7 +50,10 @@ export default function TutorCourseManager() {
     setDescription(course.description);
     setSubject(course.subject);
     setThumbnail(course.thumbnail);
-    setModules([...course.modules]);
+    setModules(course.modules.map(mod => ({
+      ...mod,
+      videoUrl: getEmbedUrl(mod.videoUrl)
+    })));
     setIsFormOpen(true);
   };
 
@@ -77,6 +80,51 @@ export default function TutorCourseManager() {
     setModules(modules.filter((_, i) => i !== idx));
   };
 
+  // Helper function to convert YouTube URLs to embed URLs
+  const getEmbedUrl = (url: string): string => {
+    if (!url) return url;
+
+    // Handle various YouTube URL formats
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(youtubeRegex);
+
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+
+    // If it's already an embed URL, return as is
+    if (url.includes('youtube.com/embed/') || url.includes('youtu.be/')) {
+      return url;
+    }
+
+    // Return original URL if not a YouTube URL
+    return url;
+  };
+
+  // Helper function to convert Unsplash page URLs to direct image URLs
+  const getImageUrl = (url: string): string => {
+    if (url.startsWith('https://unsplash.com/photos/')) {
+      // Extract photo ID from URL (the part after the last hyphen in the slug)
+      const slug = url.split('/').pop() || '';
+      const lastHyphenIndex = slug.lastIndexOf('-');
+      const photoId = lastHyphenIndex !== -1 ? slug.substring(lastHyphenIndex + 1) : slug;
+      return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&q=80&w=400&h=250`;
+    }
+    if (url.includes('unsplash.com') && !url.includes('unsplash.com/photos/')) {
+      // Handle direct image URLs
+      const urlObj = new URL(url);
+      if (!urlObj.searchParams.has('auto')) {
+        urlObj.searchParams.set('auto', 'format');
+        urlObj.searchParams.set('fit', 'crop');
+        urlObj.searchParams.set('q', '80');
+        urlObj.searchParams.set('w', '400');
+        urlObj.searchParams.set('h', '250');
+        return urlObj.toString();
+      }
+    }
+    return url;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) return;
@@ -86,10 +134,11 @@ export default function TutorCourseManager() {
       title,
       tutorId: user.id,
       description,
-      thumbnail:
-        thumbnail ||
-        'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400&h=250',
-      modules,
+      thumbnail: getImageUrl(thumbnail.trim()) || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400&h=250',
+      modules: modules.map(mod => ({
+        ...mod,
+        videoUrl: getEmbedUrl(mod.videoUrl)
+      })),
       enrolledStudents: editingCourse?.enrolledStudents || [],
       subject,
       price: 0,
@@ -201,6 +250,35 @@ export default function TutorCourseManager() {
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
                   placeholder="https://images.unsplash.com/..."
                 />
+                {thumbnail && (
+                  <div className="mt-3">
+                    <p className="text-xs text-slate-500 mb-2">Preview:</p>
+                    <div className="relative aspect-[16/10] w-full max-w-sm rounded-xl overflow-hidden border border-slate-200">
+                      <img
+                        src={getImageUrl(thumbnail)}
+                        alt="Course thumbnail preview"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const errorDiv = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (errorDiv) {
+                            errorDiv.classList.remove('hidden');
+                          }
+                        }}
+                        onLoad={(e) => {
+                          e.currentTarget.style.display = 'block';
+                          const errorDiv = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (errorDiv) {
+                            errorDiv.classList.add('hidden');
+                          }
+                        }}
+                      />
+                      <div className="hidden absolute inset-0 flex items-center justify-center bg-slate-100 text-slate-500 text-sm font-medium">
+                        Invalid or inaccessible image URL
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Modules Section */}
