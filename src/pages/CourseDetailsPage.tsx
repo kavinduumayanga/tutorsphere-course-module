@@ -28,6 +28,27 @@ export default function CourseDetailsPage() {
   const [showCertificate, setShowCertificate] = useState(false);
   const [progressVersion, setProgressVersion] = useState(0);
 
+  // Helper function to convert YouTube URLs to embed URLs
+  const getEmbedUrl = (url: string): string => {
+    if (!url) return url;
+
+    // Handle various YouTube URL formats
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(youtubeRegex);
+
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+
+    // If it's already an embed URL, return as is
+    if (url.includes('youtube.com/embed/') || url.includes('youtu.be/')) {
+      return url;
+    }
+
+    // Return original URL if not a YouTube URL
+    return url;
+  };
+
   // Helper function to convert Unsplash page URLs to direct image URLs
   const getImageUrl = (url: string): string => {
     if (url.startsWith('https://unsplash.com/photos/')) {
@@ -115,7 +136,7 @@ export default function CourseDetailsPage() {
           {isEnrolled && activeModule ? (
             <div className="bg-slate-900 rounded-2xl overflow-hidden aspect-video">
               <iframe
-                src={activeModule.videoUrl}
+                src={getEmbedUrl(activeModule.videoUrl)}
                 title={activeModule.title}
                 className="w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

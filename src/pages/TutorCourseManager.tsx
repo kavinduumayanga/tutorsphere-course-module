@@ -50,7 +50,10 @@ export default function TutorCourseManager() {
     setDescription(course.description);
     setSubject(course.subject);
     setThumbnail(course.thumbnail);
-    setModules([...course.modules]);
+    setModules(course.modules.map(mod => ({
+      ...mod,
+      videoUrl: getEmbedUrl(mod.videoUrl)
+    })));
     setIsFormOpen(true);
   };
 
@@ -75,6 +78,27 @@ export default function TutorCourseManager() {
 
   const removeModule = (idx: number) => {
     setModules(modules.filter((_, i) => i !== idx));
+  };
+
+  // Helper function to convert YouTube URLs to embed URLs
+  const getEmbedUrl = (url: string): string => {
+    if (!url) return url;
+
+    // Handle various YouTube URL formats
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = url.match(youtubeRegex);
+
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+
+    // If it's already an embed URL, return as is
+    if (url.includes('youtube.com/embed/') || url.includes('youtu.be/')) {
+      return url;
+    }
+
+    // Return original URL if not a YouTube URL
+    return url;
   };
 
   // Helper function to convert Unsplash page URLs to direct image URLs
@@ -111,7 +135,10 @@ export default function TutorCourseManager() {
       tutorId: user.id,
       description,
       thumbnail: getImageUrl(thumbnail.trim()) || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400&h=250',
-      modules,
+      modules: modules.map(mod => ({
+        ...mod,
+        videoUrl: getEmbedUrl(mod.videoUrl)
+      })),
       enrolledStudents: editingCourse?.enrolledStudents || [],
       subject,
       price: 0,
