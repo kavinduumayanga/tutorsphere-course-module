@@ -28,6 +28,18 @@ export default function CourseDetailsPage() {
   const [showCertificate, setShowCertificate] = useState(false);
   const [progressVersion, setProgressVersion] = useState(0);
 
+  // Helper function to convert Unsplash page URLs to direct image URLs
+  const getImageUrl = (url: string): string => {
+    if (url.startsWith('https://unsplash.com/photos/')) {
+      // Extract photo ID from URL (the part after the last hyphen in the slug)
+      const slug = url.split('/').pop() || '';
+      const lastHyphenIndex = slug.lastIndexOf('-');
+      const photoId = lastHyphenIndex !== -1 ? slug.substring(lastHyphenIndex + 1) : slug;
+      return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&q=80&w=400&h=250`;
+    }
+    return url;
+  };
+
   useEffect(() => {
     if (id) {
       const c = courseService.getCourseById(id);
@@ -113,10 +125,13 @@ export default function CourseDetailsPage() {
           ) : (
             <div className="bg-slate-900 rounded-2xl overflow-hidden aspect-video flex items-center justify-center relative">
               <img
-                src={course.thumbnail}
+                src={getImageUrl(course.thumbnail)}
                 alt={course.title}
                 className="w-full h-full object-cover opacity-30 absolute inset-0"
                 referrerPolicy="no-referrer"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400&h=250';
+                }}
               />
               <div className="relative text-center text-white z-10 p-6">
                 {!isEnrolled ? (

@@ -10,6 +10,18 @@ interface CourseCardProps {
 export default function CourseCard({ course }: CourseCardProps) {
   const tutor = authService.getUserById(course.tutorId);
 
+  // Helper function to convert Unsplash page URLs to direct image URLs
+  const getImageUrl = (url: string): string => {
+    if (url.startsWith('https://unsplash.com/photos/')) {
+      // Extract photo ID from URL (the part after the last hyphen in the slug)
+      const slug = url.split('/').pop() || '';
+      const lastHyphenIndex = slug.lastIndexOf('-');
+      const photoId = lastHyphenIndex !== -1 ? slug.substring(lastHyphenIndex + 1) : slug;
+      return `https://images.unsplash.com/photo-${photoId}?auto=format&fit=crop&q=80&w=400&h=250`;
+    }
+    return url;
+  };
+
   return (
     <Link
       to={`/courses/${course.id}`}
@@ -17,10 +29,13 @@ export default function CourseCard({ course }: CourseCardProps) {
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
-          src={course.thumbnail}
+          src={getImageUrl(course.thumbnail)}
           alt={course.title}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           referrerPolicy="no-referrer"
+          onError={(e) => {
+            e.currentTarget.src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=400&h=250';
+          }}
         />
         <div className="absolute top-4 left-4">
           <span className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-bold text-indigo-600 uppercase tracking-wider border border-white/50 shadow-sm">
