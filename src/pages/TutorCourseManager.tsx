@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Pencil, Trash2, BookOpen, X, Save, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Pencil, Trash2, BookOpen, X, Save, ChevronDown, ChevronUp, Users } from 'lucide-react';
 import { Course, CourseModule } from '../types';
 import { courseService } from '../services/courseService';
+import { authService } from '../services/authService';
 import { useAuth } from '../context/AuthContext';
 
 export default function TutorCourseManager() {
@@ -479,24 +480,81 @@ export default function TutorCourseManager() {
               {expandedCourse === course.id && (
                 <div className="px-6 pb-6 border-t border-slate-50">
                   <p className="text-sm text-slate-500 my-4">{course.description}</p>
-                  <div className="space-y-2">
-                    {course.modules.map((mod, idx) => (
-                      <div
-                        key={mod.id}
-                        className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl text-sm"
-                      >
-                        <span className="bg-indigo-100 text-indigo-600 w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs">
-                          {idx + 1}
-                        </span>
-                        <span className="font-medium text-slate-700 flex-1">{mod.title}</span>
-                        <span className="text-slate-400 text-xs">{mod.duration}</span>
-                      </div>
-                    ))}
-                    {course.modules.length === 0 && (
-                      <p className="text-sm text-slate-400 text-center py-3">
-                        No modules added to this course yet.
-                      </p>
-                    )}
+                  
+                  {/* Modules Section */}
+                  <div className="mb-6">
+                    <h4 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3">
+                      Course Modules
+                    </h4>
+                    <div className="space-y-2">
+                      {course.modules.map((mod, idx) => (
+                        <div
+                          key={mod.id}
+                          className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl text-sm"
+                        >
+                          <span className="bg-indigo-100 text-indigo-600 w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs">
+                            {idx + 1}
+                          </span>
+                          <span className="font-medium text-slate-700 flex-1">{mod.title}</span>
+                          <span className="text-slate-400 text-xs">{mod.duration}</span>
+                        </div>
+                      ))}
+                      {course.modules.length === 0 && (
+                        <p className="text-sm text-slate-400 text-center py-3">
+                          No modules added to this course yet.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Enrolled Students Section */}
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <Users className="w-4 h-4" />
+                      Enrolled Students ({course.enrolledStudents.length})
+                    </h4>
+                    <div className="space-y-2">
+                      {course.enrolledStudents.length > 0 ? (
+                        course.enrolledStudents.map(studentId => {
+                          const student = authService.getUserById(studentId);
+                          return (
+                            <div
+                              key={studentId}
+                              className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl text-sm"
+                            >
+                              <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                                <span className="text-indigo-600 font-bold text-xs">
+                                  {student?.name.charAt(0).toUpperCase() || '?'}
+                                </span>
+                              </div>
+                              <div className="flex-1">
+                                <span className="font-medium text-slate-700">
+                                  {student?.name || 'Unknown Student'}
+                                </span>
+                                <span className="text-slate-400 text-xs ml-2">
+                                  {student?.email || studentId}
+                                </span>
+                              </div>
+                              <div className="text-xs text-slate-400">
+                                {(() => {
+                                  const enrollments = courseService.getEnrollments(studentId);
+                                  const enrollment = enrollments.find(e => e.courseId === course.id);
+                                  if (enrollment) {
+                                    const progress = courseService.getProgress(course.id, studentId);
+                                    return `${progress.completed}/${progress.total} modules`;
+                                  }
+                                  return 'Not started';
+                                })()}
+                              </div>
+                            </div>
+                          );
+                        })
+                      ) : (
+                        <p className="text-sm text-slate-400 text-center py-3">
+                          No students enrolled in this course yet.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
