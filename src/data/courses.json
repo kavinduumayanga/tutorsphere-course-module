@@ -1,0 +1,138 @@
+[
+  {
+    "id": "course1",
+    "title": "Java Programming Basics",
+    "tutorId": "2",
+    "description": "Learn Java fundamentals from scratch. This comprehensive course covers variables, data types, control flow, OOP concepts, and building your first applications.",
+    "thumbnail": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400&h=250",
+    "modules": [
+      {
+        "id": "m1",
+        "title": "Introduction to Java",
+        "videoUrl": "https://www.youtube.com/embed/eIrMbAQSU34",
+        "duration": "15 min",
+        "resources": ["Java Setup Guide.pdf"]
+      },
+      {
+        "id": "m2",
+        "title": "Variables and Data Types",
+        "videoUrl": "https://www.youtube.com/embed/eIrMbAQSU34",
+        "duration": "20 min",
+        "resources": ["Variables Cheat Sheet.pdf"]
+      },
+      {
+        "id": "m3",
+        "title": "Control Flow Statements",
+        "videoUrl": "https://www.youtube.com/embed/eIrMbAQSU34",
+        "duration": "25 min",
+        "resources": []
+      }
+    ],
+    "enrolledStudents": ["1"],
+    "subject": "Programming",
+    "price": 0,
+    "createdAt": "2026-01-15"
+  },
+  {
+    "id": "course2",
+    "title": "Web Development with React",
+    "tutorId": "2",
+    "description": "Master modern frontend development with React, TypeScript, and Tailwind CSS. Build real-world projects and learn component-based architecture.",
+    "thumbnail": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=400&h=250",
+    "modules": [
+      {
+        "id": "m1",
+        "title": "React Fundamentals",
+        "videoUrl": "https://www.youtube.com/embed/Ke90Tje7VS0",
+        "duration": "30 min",
+        "resources": ["React Basics.pdf"]
+      },
+      {
+        "id": "m2",
+        "title": "Components and Props",
+        "videoUrl": "https://www.youtube.com/embed/Ke90Tje7VS0",
+        "duration": "25 min",
+        "resources": []
+      },
+      {
+        "id": "m3",
+        "title": "State Management with Hooks",
+        "videoUrl": "https://www.youtube.com/embed/Ke90Tje7VS0",
+        "duration": "35 min",
+        "resources": ["Hooks Reference.pdf"]
+      }
+    ],
+    "enrolledStudents": [],
+    "subject": "Web Development",
+    "price": 0,
+    "createdAt": "2026-02-01"
+  },
+  {
+    "id": "course3",
+    "title": "Python for Data Science",
+    "tutorId": "2",
+    "description": "Learn Python programming with a focus on data analysis, visualization, and machine learning basics using NumPy, Pandas, and Matplotlib.",
+    "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=400&h=250",
+    "modules": [
+      {
+        "id": "m1",
+        "title": "Python Basics",
+        "videoUrl": "https://www.youtube.com/embed/rfscVS0vtbw",
+        "duration": "20 min",
+        "resources": ["Python Cheat Sheet.pdf"]
+      },
+      {
+        "id": "m2",
+        "title": "NumPy and Pandas",
+        "videoUrl": "https://www.youtube.com/embed/rfscVS0vtbw",
+        "duration": "35 min",
+        "resources": ["Data Libraries Guide.pdf"]
+      },
+      {
+        "id": "m3",
+        "title": "Data Visualization",
+        "videoUrl": "https://www.youtube.com/embed/rfscVS0vtbw",
+        "duration": "30 min",
+        "resources": []
+      },
+      {
+        "id": "m4",
+        "title": "Intro to Machine Learning",
+        "videoUrl": "https://www.youtube.com/embed/rfscVS0vtbw",
+        "duration": "40 min",
+        "resources": ["ML Basics.pdf"]
+      }
+    ],
+    "enrolledStudents": ["1"],
+    "subject": "Data Science",
+    "price": 0,
+    "createdAt": "2026-02-10"
+  },
+  {
+    "id": "course4",
+    "title": "Database Design with SQL",
+    "tutorId": "2",
+    "description": "Understand relational database concepts, SQL queries, normalization, and database design patterns for building robust data systems.",
+    "thumbnail": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&q=80&w=400&h=250",
+    "modules": [
+      {
+        "id": "m1",
+        "title": "Introduction to Databases",
+        "videoUrl": "https://www.youtube.com/embed/HXV3zeQKqGY",
+        "duration": "20 min",
+        "resources": ["SQL Cheat Sheet.pdf"]
+      },
+      {
+        "id": "m2",
+        "title": "SQL Queries and Joins",
+        "videoUrl": "https://www.youtube.com/embed/HXV3zeQKqGY",
+        "duration": "30 min",
+        "resources": []
+      }
+    ],
+    "enrolledStudents": [],
+    "subject": "Database",
+    "price": 0,
+    "createdAt": "2026-02-20"
+  }
+]

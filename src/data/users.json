@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "email": "kavindu@test.com",
+    "password": "123456",
+    "role": "student"
+  },
+  {
+    "id": "2",
+    "name": "Jane Tutor",
+    "email": "tutor@test.com",
+    "password": "123456",
+    "role": "tutor"
+  },
+  {
+    "id": "3",
+    "name": "Nimal Perera",
+    "email": "nimal@test.com",
+    "password": "123456",
+    "role": "student"
+  }
+]

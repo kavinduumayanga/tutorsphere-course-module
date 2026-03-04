@@ -1,0 +1,62 @@
+[
+  {
+    "id": "r1",
+    "title": "Java Programming Cheat Sheet",
+    "type": "Note",
+    "subject": "Programming",
+    "description": "Quick reference for Java syntax, data types, loops, and OOP concepts.",
+    "url": "#",
+    "uploadedBy": "2",
+    "createdAt": "2026-01-20"
+  },
+  {
+    "id": "r2",
+    "title": "React Hooks Complete Guide",
+    "type": "Article",
+    "subject": "Web Development",
+    "description": "Comprehensive guide covering useState, useEffect, useContext, and custom hooks.",
+    "url": "#",
+    "uploadedBy": "2",
+    "createdAt": "2026-01-25"
+  },
+  {
+    "id": "r3",
+    "title": "Python Data Science Handbook",
+    "type": "PDF",
+    "subject": "Data Science",
+    "description": "In-depth reference for NumPy, Pandas, Matplotlib, and Scikit-Learn.",
+    "url": "#",
+    "uploadedBy": "2",
+    "createdAt": "2026-02-05"
+  },
+  {
+    "id": "r4",
+    "title": "SQL Practice Problems Set",
+    "type": "Paper",
+    "subject": "Database",
+    "description": "50 practice SQL problems from basic queries to advanced joins and subqueries.",
+    "url": "#",
+    "uploadedBy": "2",
+    "createdAt": "2026-02-12"
+  },
+  {
+    "id": "r5",
+    "title": "TypeScript for Beginners",
+    "type": "Note",
+    "subject": "Web Development",
+    "description": "Introduction to TypeScript types, interfaces, generics, and best practices.",
+    "url": "#",
+    "uploadedBy": "2",
+    "createdAt": "2026-02-18"
+  },
+  {
+    "id": "r6",
+    "title": "Algorithm Design Patterns",
+    "type": "PDF",
+    "subject": "Programming",
+    "description": "Common algorithm patterns including two pointers, sliding window, and dynamic programming.",
+    "url": "#",
+    "uploadedBy": "2",
+    "createdAt": "2026-02-25"
+  }
+]
