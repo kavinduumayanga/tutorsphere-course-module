@@ -265,9 +265,7 @@ export default function TutorCourseManager() {
                     Price ($)
                   </label>
                   <input
-                    type="number"
-                    min="0.01"
-                    step="0.01"
+                    type="text"
                     value={price}
                     onChange={e => setPrice(parseFloat(e.target.value) || 0)}
                     className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
