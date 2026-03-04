@@ -18,6 +18,8 @@ export default function TutorCourseManager() {
   const [description, setDescription] = useState('');
   const [subject, setSubject] = useState('');
   const [thumbnail, setThumbnail] = useState('');
+  const [isPaid, setIsPaid] = useState(false);
+  const [price, setPrice] = useState(0);
   const [modules, setModules] = useState<CourseModule[]>([]);
 
   useEffect(() => {
@@ -39,6 +41,8 @@ export default function TutorCourseManager() {
     setDescription('');
     setSubject('');
     setThumbnail('');
+    setIsPaid(false);
+    setPrice(0);
     setModules([]);
     setEditingCourse(null);
     setIsFormOpen(false);
@@ -50,6 +54,8 @@ export default function TutorCourseManager() {
     setDescription(course.description);
     setSubject(course.subject);
     setThumbnail(course.thumbnail);
+    setIsPaid(course.price > 0);
+    setPrice(course.price);
     setModules(course.modules.map(mod => ({
       ...mod,
       videoUrl: getEmbedUrl(mod.videoUrl)
@@ -141,7 +147,7 @@ export default function TutorCourseManager() {
       })),
       enrolledStudents: editingCourse?.enrolledStudents || [],
       subject,
-      price: 0,
+      price: isPaid ? price : 0,
       createdAt: editingCourse?.createdAt || new Date().toISOString().split('T')[0],
     };
 
@@ -199,7 +205,7 @@ export default function TutorCourseManager() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
+              <div className="grid md:grid-cols-3 gap-5">
                 <div className="space-y-2">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                     Course Title
@@ -224,7 +230,52 @@ export default function TutorCourseManager() {
                     placeholder="e.g. Programming"
                   />
                 </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    Course Type
+                  </label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="courseType"
+                        checked={!isPaid}
+                        onChange={() => setIsPaid(false)}
+                        className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <span className="text-sm font-medium text-slate-700">Free</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="courseType"
+                        checked={isPaid}
+                        onChange={() => setIsPaid(true)}
+                        className="w-4 h-4 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <span className="text-sm font-medium text-slate-700">Paid</span>
+                    </label>
+                  </div>
+                </div>
               </div>
+
+              {isPaid && (
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                    Price ($)
+                  </label>
+                  <input
+                    type="number"
+                    min="0.01"
+                    step="0.01"
+                    value={price}
+                    onChange={e => setPrice(parseFloat(e.target.value) || 0)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-medium"
+                    placeholder="49.99"
+                    required={isPaid}
+                  />
+                </div>
+              )}
 
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">

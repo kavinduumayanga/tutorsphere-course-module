@@ -270,15 +270,25 @@ export default function CourseDetailsPage() {
               </div>
             ) : (
               <div className="space-y-4 text-center">
-                <h3 className="font-bold text-slate-900 text-lg">Ready to learn?</h3>
+                <h3 className="font-bold text-slate-900 text-lg">
+                  {course.price > 0 ? 'Ready to start learning?' : 'Ready to learn?'}
+                </h3>
                 <p className="text-sm text-slate-500">
-                  Enroll now to access all modules and track your progress.
+                  {course.price > 0 
+                    ? `Enroll now to access all modules and track your progress.`
+                    : `Enroll now to access all modules and track your progress.`
+                  }
                 </p>
+                {course.price > 0 && (
+                  <div className="text-3xl font-bold text-green-600 mb-2">
+                    ${course.price}
+                  </div>
+                )}
                 <button
                   onClick={handleEnroll}
                   className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200"
                 >
-                  Enroll Now — Free
+                  {course.price > 0 ? `Buy Course - $${course.price}` : 'Enroll Now — Free'}
                 </button>
               </div>
             )}

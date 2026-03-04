@@ -30,7 +30,7 @@
     ],
     "enrolledStudents": ["1"],
     "subject": "Programming",
-    "price": 0,
+    "price": 49.99,
     "createdAt": "2026-01-15"
   },
   {
@@ -64,7 +64,7 @@
     ],
     "enrolledStudents": [],
     "subject": "Web Development",
-    "price": 0,
+    "price": 79.99,
     "createdAt": "2026-02-01"
   },
   {

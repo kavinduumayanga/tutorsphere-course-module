@@ -59,8 +59,19 @@ export default function CourseCard({ course }: CourseCardProps) {
               <Users className="w-3.5 h-3.5" /> {course.enrolledStudents.length} enrolled
             </span>
           </div>
-          <div className="text-indigo-600 group-hover:translate-x-1 transition-transform">
-            <ArrowRight className="w-5 h-5" />
+          <div className="flex items-center gap-3">
+            {course.price > 0 ? (
+              <span className="text-lg font-bold text-green-600">
+                ${course.price}
+              </span>
+            ) : (
+              <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-lg">
+                Free
+              </span>
+            )}
+            <div className="text-indigo-600 group-hover:translate-x-1 transition-transform">
+              <ArrowRight className="w-5 h-5" />
+            </div>
           </div>
         </div>
         {tutor && (
