@@ -119,6 +119,16 @@ export default function CourseDetailsPage() {
     setProgressVersion(v => v + 1);
   };
 
+  const handleUnenroll = () => {
+    if (!user || !window.confirm('Are you sure you want to unenroll from this course? Your progress will be lost.')) {
+      return;
+    }
+    courseService.unenrollStudent(course.id, user.id);
+    setIsEnrolled(false);
+    setCompletedModules([]);
+    setProgressVersion(v => v + 1);
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Back button */}
@@ -267,6 +277,13 @@ export default function CourseDetailsPage() {
                     <Award className="w-5 h-5" /> Download Certificate
                   </button>
                 )}
+
+                <button
+                  onClick={handleUnenroll}
+                  className="w-full bg-red-500 text-white py-2.5 rounded-xl font-bold hover:bg-red-600 transition-all text-sm"
+                >
+                  Unenroll from Course
+                </button>
               </div>
             ) : (
               <div className="space-y-4 text-center">
