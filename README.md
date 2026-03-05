@@ -12,7 +12,18 @@ A comprehensive web-based platform connecting students with qualified STEM and I
 - **Certificate Generation**: Earn certificates upon course completion
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## 🛠️ Tech Stack
+## � Screenshots
+
+### Login Page
+![Login Page](screenshots/login-page.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Course Details
+![Course Details](screenshots/course-details.png)
+
+## �🛠️ Tech Stack
 
 ### Frontend
 - **React 19** - Modern JavaScript library for building user interfaces
