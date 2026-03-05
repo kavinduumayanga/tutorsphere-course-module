@@ -14,14 +14,56 @@ A comprehensive web-based platform connecting students with qualified STEM and I
 
 ## � Screenshots
 
-### Login Page
+### Authentication
+#### Login Page
 ![Login Page](screenshots/login-page.png)
 
 ### Dashboard
+#### Main Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
-### Course Details
+### Courses
+#### Course Details
 ![Course Details](screenshots/course-details.png)
+
+#### Course Enrollment
+![Course Enrollment](screenshots/course-enrollment.png)
+
+#### Course Progress
+![Course Progress](screenshots/course-progress.png)
+
+#### Paid Courses
+![Paid Courses](screenshots/paid-courses.png)
+
+#### Manage Courses
+![Manage Courses](screenshots/manage-courses.png)
+
+#### Update Course Details
+![Update Course Details](screenshots/update-course-details.png)
+
+#### Update Course Details 2
+![Update Course Details 2](screenshots/update-course-details2.png)
+
+### Resources
+#### Free Resources
+![Free Resources](screenshots/free-resources.png)
+
+#### Downloadable Resources
+![Downloadable Resources](screenshots/downloadable%20resources.png)
+
+#### Upload Resource
+![Upload Resource](screenshots/upload-resource.png)
+
+### Certificates
+#### Course Complete Certificate
+![Course Complete Certificate](screenshots/course-complete-certificate.png)
+
+#### Course Completed Popup
+![Course Completed Popup](screenshots/course-completed-popup.png)
+
+### AI Features
+#### AI Chatbot
+![AI Chatbot](screenshots/ai-chatbot.png)
 
 ## �🛠️ Tech Stack
 
